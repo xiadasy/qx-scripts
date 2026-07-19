@@ -29,7 +29,7 @@ c.mode.CTRGladman=function(){var t=c.lib.BlockCipherMode.extend();function e(t){
 
 ;var pako=(typeof pako!=="undefined"?pako:(typeof globalThis!=="undefined"?globalThis.pako:undefined));
 /**
- * 黄豆短剧 QX 解锁 V5 — 短剧 + dating 擦边专区
+ * 黄豆短剧 QX 解锁 V6 — 短剧专题 + dating 擦边专区
  * QX 兼容：不依赖 crypto.subtle/TextEncoder/CompressionStream。
  * request 阶段保存 play 的 id/seq；response 阶段解密→改写→再加密。
  */
@@ -319,6 +319,13 @@ function hdResponsePhase() {
     if (Array.isArray(obj.data)) obj.data = hdDeep(obj.data);
     else obj.data = hdUnlockUser(obj.data);
     changed = true;
+  }
+  // 专题、导航块、榜单等接口内嵌的是剧集摘要或完整 detail；统一递归放行。
+  if (/\/drama\/(topicList|topicDetail|topic|navBlock|navList|more|rank|searchResult)/.test(path) && obj && typeof obj === "object") {
+    obj.status = "y";
+    if (obj.data && typeof obj.data === "object") obj.data = hdDeep(obj.data);
+    changed = true;
+    hdLog("drama collection unlock " + path);
   }
   if (path.indexOf("/drama/list") >= 0 && obj && obj.data && Array.isArray(obj.data.list)) {
     obj.data.list.forEach(function (it) { if (it) { it.corner = ""; it.money = "0"; it.pay_type = "free"; } });

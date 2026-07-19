@@ -1,5 +1,5 @@
 /**
- * 黄豆短剧前端补丁 V5
+ * 黄豆短剧前端补丁 V6
  * - HTML: 禁用旧 Service Worker 缓存，给 main.dart.js / 哈希主包加版本 query
  * - main.js: anp/ano 永远 false / anM free / qu 不弹购买 / 锁图标清除
  */
@@ -67,7 +67,7 @@
 
   // SPA HTML：强制 main 请求变化，绕过 SW / CacheStorage 旧包
   if (/<html/i.test(body) && body.indexOf("main.") >= 0) {
-    body = body.replace(/(main(?:\.dart|\.[a-f0-9]+)*\.js)(?!\?)/gi, "$1?hdqx=v5");
+    body = body.replace(/(main(?:\.dart|\.[a-f0-9]+)*\.js)(?!\?)/gi, "$1?hdqx=v6");
     // 不再注册 sw.js
     body = body.replace(/navigator\.serviceWorker\.register\(['"]sw\.js['"]\)/g, "Promise.resolve(null)");
     var clear = '<script>(function(){try{if(navigator.serviceWorker)navigator.serviceWorker.getRegistrations().then(function(a){a.forEach(function(r){r.unregister()})});if(window.caches)caches.keys().then(function(a){a.forEach(function(k){caches.delete(k)})})}catch(e){}})();</script>';
