@@ -1,0 +1,7 @@
+#!name=ShortTV 新站媒体分流
+#!desc=让新站、API 与 HLS 媒体统一走同一代理策略，避免跨出口导致播放失败。
+#!author=xiadasy
+
+host, shorttv.online, proxy
+host, seeshorttv.cc, proxy
+host, cdn.shorttv.online, proxy
